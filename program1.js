@@ -1,25 +1,30 @@
+
 /**
  * @param {string} s
- * @return {number}
+ * @return {boolean}
  */
-
-
-module.exports={romanToInt}
-
-var romanToInt = function (s) {
-    const d = {
-        I: 1,
-        V: 5,
-        X: 10,
-        L: 50,
-        C: 100,
-        D: 500,
-        M: 1000,
-    };
-    let ans = d[s[s.length - 1]];
-    for (let i = 0; i < s.length - 1; ++i) {
-        const sign = d[s[i]] < d[s[i + 1]] ? -1 : 1;
-        ans += sign * d[s[i]];
-    }
-    return ans;
+var isValid = function(s) {
+    
 };
+
+module.exports = { isValid };
+
+function isValid(s) {
+    let stack = [];
+    let map = {
+        '(' : ')',
+        '[' : ']', 
+        '{' : '}'
+    } ;
+    for(let i = 0 ; i < s.length; i++ ) {
+        if (s[i] === '(' || s[i] === '{' || s[i] === '[' ) {
+            stack.push(s[i]);
+        }
+        else {
+            if (stack.length === 0 || map[stack.pop()] !== s[i]){
+                return false;
+            }
+        }
+    }
+    return stack.length === 0;
+}
